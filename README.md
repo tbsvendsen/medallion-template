@@ -34,7 +34,6 @@ pytest --cov
 
 - **Python** 3.11+
 - **Polars** for data processing
-- **DuckDB** for analytical queries
 - **Pydantic** for data models and validation
 - **Faker** for synthetic data generation
 - **pytest** for testing

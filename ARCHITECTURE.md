@@ -80,7 +80,7 @@ All operations are idempotent — rerunning overwrites existing output.
 
 1. **Polars over Pandas** — Lazy evaluation, no index confusion, better type safety, faster for this workload.
 2. **Parquet between layers** — Columnar, typed, compressed. No ambiguity about types across layer boundaries.
-3. **No database for storage** — Files are simpler to inspect and version. DuckDB can query the Parquet files directly for ad-hoc analysis.
+3. **No database for storage** — Files are simpler to inspect and version. Parquet files can be queried directly with tools like DuckDB for ad-hoc analysis.
 4. **Deterministic surrogate keys** — SHA-256 hash instead of auto-increment means keys are stable across pipeline runs.
 5. **Schema validation at bronze** — Catch structural problems before any transformation. Fail fast.
 6. **One standardizer per entity** — Explicit, readable, testable. No generic "clean everything" function.
@@ -100,7 +100,6 @@ Tests use a session-scoped fixture that generates a small dataset (20 customers,
 | Package | Role |
 |---------|------|
 | Polars | Data processing |
-| DuckDB | Available for analytical queries on gold layer |
 | Pydantic | Domain models, data validation |
 | Faker | Synthetic data generation |
 
