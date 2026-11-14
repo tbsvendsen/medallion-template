@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 520" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#666"/>
+    </marker>
+    <linearGradient id="bronzeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#CD7F32"/>
+      <stop offset="100%" style="stop-color:#B8860B"/>
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A8A9AD"/>
+      <stop offset="100%" style="stop-color:#808080"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#DAA520"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title { font-size: 16px; font-weight: 600; fill: #1a1a2e; }
+    .subtitle { font-size: 11px; fill: #666; }
+    .layer { rx: 8; ry: 8; stroke-width: 2; }
+    .layer-name { font-size: 14px; font-weight: 700; }
+    .layer-mod { font-size: 10px; font-family: 'SF Mono', 'Menlo', monospace; opacity: 0.85; }
+    .layer-desc { font-size: 10px; opacity: 0.9; }
+    .flow { stroke: #666; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .format-tag { font-size: 9px; fill: #888; font-style: italic; }
+    .entity-box { rx: 4; ry: 4; fill: #f8f9fa; stroke: #ddd; stroke-width: 1; }
+    .entity-text { font-size: 9px; fill: #555; }
+    .transform-label { font-size: 9px; fill: #333; font-weight: 600; }
+  </style>
+
+  <text x="410" y="28" text-anchor="middle" class="title">Medallion Architecture — Data Pipeline Layers</text>
+  <text x="410" y="46" text-anchor="middle" class="subtitle">Pre-bronze → Bronze → Silver → Gold (Kimball star schema)</text>
+
+  <!-- Source -->
+  <rect x="20" y="80" width="140" height="120" class="layer" fill="#5B6770" stroke="#4a5560"/>
+  <text x="90" y="108" text-anchor="middle" class="layer-name" fill="#fff">Source</text>
+  <text x="90" y="126" text-anchor="middle" class="layer-mod" fill="#fff">synthetic.py</text>
+  <line x1="35" y1="138" x2="145" y2="138" stroke="#fff" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="90" y="155" text-anchor="middle" class="layer-desc" fill="#fff">Faker seed=42</text>
+  <text x="90" y="169" text-anchor="middle" class="layer-desc" fill="#fff">5 entities</text>
+  <text x="90" y="183" text-anchor="middle" class="layer-desc" fill="#fff">Weighted distributions</text>
+
+  <!-- Pre-Bronze -->
+  <rect x="190" y="80" width="140" height="120" class="layer" fill="#8B4513" stroke="#723910"/>
+  <text x="260" y="108" text-anchor="middle" class="layer-name" fill="#fff">Pre-Bronze</text>
+  <text x="260" y="126" text-anchor="middle" class="layer-mod" fill="#fff">pre_bronze.py</text>
+  <line x1="205" y1="138" x2="315" y2="138" stroke="#fff" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="260" y="155" text-anchor="middle" class="layer-desc" fill="#fff">Raw ingest</text>
+  <text x="260" y="169" text-anchor="middle" class="layer-desc" fill="#fff">Retry + backoff</text>
+  <text x="260" y="183" text-anchor="middle" class="layer-desc" fill="#fff">No transformation</text>
+
+  <!-- Bronze -->
+  <rect x="360" y="80" width="140" height="120" class="layer" fill="url(#bronzeGrad)" stroke="#A0722A"/>
+  <text x="430" y="108" text-anchor="middle" class="layer-name" fill="#fff">Bronze</text>
+  <text x="430" y="126" text-anchor="middle" class="layer-mod" fill="#fff">bronze.py</text>
+  <line x1="375" y1="138" x2="485" y2="138" stroke="#fff" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="430" y="155" text-anchor="middle" class="layer-desc" fill="#fff">Schema validation</text>
+  <text x="430" y="169" text-anchor="middle" class="layer-desc" fill="#fff">JSON → Parquet</text>
+  <text x="430" y="183" text-anchor="middle" class="layer-desc" fill="#fff">Fail fast on mismatch</text>
+
+  <!-- Silver -->
+  <rect x="530" y="80" width="140" height="120" class="layer" fill="url(#silverGrad)" stroke="#707070"/>
+  <text x="600" y="108" text-anchor="middle" class="layer-name" fill="#fff">Silver</text>
+  <text x="600" y="126" text-anchor="middle" class="layer-mod" fill="#fff">silver.py</text>
+  <line x1="545" y1="138" x2="655" y2="138" stroke="#fff" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="600" y="155" text-anchor="middle" class="layer-desc" fill="#fff">Standardize types</text>
+  <text x="600" y="169" text-anchor="middle" class="layer-desc" fill="#fff">Dedup, null handling</text>
+  <text x="600" y="183" text-anchor="middle" class="layer-desc" fill="#fff">Per-entity functions</text>
+
+  <!-- Gold -->
+  <rect x="700" y="80" width="100" height="120" class="layer" fill="url(#goldGrad)" stroke="#C0A030"/>
+  <text x="750" y="108" text-anchor="middle" class="layer-name" fill="#333">Gold</text>
+  <text x="750" y="126" text-anchor="middle" class="layer-mod" fill="#333">gold.py</text>
+  <line x1="715" y1="138" x2="785" y2="138" stroke="#333" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="750" y="155" text-anchor="middle" class="layer-desc" fill="#333">Kimball star</text>
+  <text x="750" y="169" text-anchor="middle" class="layer-desc" fill="#333">SCD type 2</text>
+  <text x="750" y="183" text-anchor="middle" class="layer-desc" fill="#333">SHA-256 keys</text>
+
+  <!-- Flow arrows with format tags -->
+  <line x1="160" y1="140" x2="188" y2="140" class="flow"/>
+  <text x="174" y="133" class="format-tag">JSON</text>
+
+  <line x1="330" y1="140" x2="358" y2="140" class="flow"/>
+  <text x="344" y="133" class="format-tag">JSON</text>
+
+  <line x1="500" y1="140" x2="528" y2="140" class="flow"/>
+  <text x="514" y="133" class="format-tag">Parquet</text>
+
+  <line x1="670" y1="140" x2="698" y2="140" class="flow"/>
+  <text x="684" y="133" class="format-tag">Parquet</text>
+
+  <!-- Star schema detail -->
+  <rect x="20" y="235" width="780" height="265" rx="8" ry="8" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="410" y="260" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Gold Layer — Kimball Star Schema</text>
+
+  <!-- Fact table -->
+  <rect x="290" y="280" width="240" height="120" rx="6" ry="6" fill="#4C78A8" stroke="#3b6190" stroke-width="1.5"/>
+  <text x="410" y="302" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">fact_order_lines</text>
+  <line x1="305" y1="310" x2="515" y2="310" stroke="#fff" stroke-opacity="0.3"/>
+  <text x="310" y="328" font-size="10" fill="#fff" opacity="0.9">order_line_sk (PK)</text>
+  <text x="310" y="343" font-size="10" fill="#fff" opacity="0.9">date_key → dim_date</text>
+  <text x="310" y="358" font-size="10" fill="#fff" opacity="0.9">customer_sk → dim_customer</text>
+  <text x="310" y="373" font-size="10" fill="#fff" opacity="0.9">product_sk → dim_product</text>
+  <text x="310" y="388" font-size="10" fill="#fff" opacity="0.9">quantity, unit_price, discount, line_total</text>
+
+  <!-- dim_date -->
+  <rect x="30" y="280" width="200" height="85" rx="6" ry="6" fill="url(#goldGrad)" stroke="#C0A030" stroke-width="1"/>
+  <text x="130" y="302" text-anchor="middle" font-size="11" font-weight="700" fill="#333">dim_date</text>
+  <line x1="45" y1="310" x2="215" y2="310" stroke="#333" stroke-opacity="0.2"/>
+  <text x="45" y="326" font-size="9" fill="#333">date_key (PK) — YYYYMMDD</text>
+  <text x="45" y="340" font-size="9" fill="#333">year, quarter, month, day</text>
+  <text x="45" y="354" font-size="9" fill="#333">day_of_week, is_weekend</text>
+
+  <!-- dim_customer -->
+  <rect x="30" y="390" width="200" height="100" rx="6" ry="6" fill="url(#goldGrad)" stroke="#C0A030" stroke-width="1"/>
+  <text x="130" y="412" text-anchor="middle" font-size="11" font-weight="700" fill="#333">dim_customer (SCD2)</text>
+  <line x1="45" y1="420" x2="215" y2="420" stroke="#333" stroke-opacity="0.2"/>
+  <text x="45" y="436" font-size="9" fill="#333">customer_sk (PK) — SHA-256</text>
+  <text x="45" y="450" font-size="9" fill="#333">customer_id, name, email</text>
+  <text x="45" y="464" font-size="9" fill="#333">segment, country</text>
+  <text x="45" y="478" font-size="9" fill="#333">valid_from, valid_to, is_current</text>
+
+  <!-- dim_product -->
+  <rect x="590" y="280" width="200" height="85" rx="6" ry="6" fill="url(#goldGrad)" stroke="#C0A030" stroke-width="1"/>
+  <text x="690" y="302" text-anchor="middle" font-size="11" font-weight="700" fill="#333">dim_product</text>
+  <line x1="605" y1="310" x2="775" y2="310" stroke="#333" stroke-opacity="0.2"/>
+  <text x="605" y="326" font-size="9" fill="#333">product_sk (PK) — SHA-256</text>
+  <text x="605" y="340" font-size="9" fill="#333">product_id, name, category</text>
+  <text x="605" y="354" font-size="9" fill="#333">unit_price</text>
+
+  <!-- FK arrows -->
+  <line x1="290" y1="322" x2="230" y2="322" class="flow"/>
+  <line x1="290" y1="380" x2="250" y2="410" class="flow"/>
+  <line x1="530" y1="322" x2="588" y2="322" class="flow"/>
+</svg>

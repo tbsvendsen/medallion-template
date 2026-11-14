@@ -4,10 +4,16 @@
 
 This pipeline implements a four-layer medallion architecture that transforms synthetic order data into a Kimball dimensional model.
 
+![Architecture](docs/architecture.svg)
+
 ```
 API (simulated) → Pre-bronze → Bronze → Silver → Gold
      JSON           JSON       Parquet   Parquet   Parquet
 ```
+
+## Module Pipeline
+
+![Pipeline](docs/pipeline.svg)
 
 ## Layers
 
