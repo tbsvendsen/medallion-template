@@ -9,7 +9,7 @@ import polars as pl
 from medallion.bronze import json_to_parquet
 from medallion.gold import silver_to_gold
 from medallion.pipeline import PipelineConfig
-from medallion.pre_bronze import ingest_raw_copy
+from medallion.pre_bronze import ingest_to_raw
 from medallion.silver import bronze_to_silver
 
 
@@ -18,7 +18,7 @@ class TestPreBronze:
         self, data_dir: Path, pipeline_config: PipelineConfig, entities: list[str]
     ) -> None:
         source = data_dir / "source"
-        paths = ingest_raw_copy(source, pipeline_config.raw_dir, entities)
+        paths = ingest_to_raw(source, pipeline_config.raw_dir, entities)
         assert set(paths.keys()) == set(entities)
         for path in paths.values():
             assert path.exists()
@@ -29,9 +29,8 @@ class TestBronze:
     def test_json_to_parquet_creates_all_files(
         self, pipeline_config: PipelineConfig, entities: list[str]
     ) -> None:
-        # Ensure raw data exists
         source = pipeline_config.base_dir / "source"
-        ingest_raw_copy(source, pipeline_config.raw_dir, entities)
+        ingest_to_raw(source, pipeline_config.raw_dir, entities)
 
         paths = json_to_parquet(
             pipeline_config.raw_dir, pipeline_config.bronze_dir, entities

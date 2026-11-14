@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 import logging
 import random
-import shutil
 import time
 from pathlib import Path
 from typing import Any
@@ -115,19 +114,3 @@ def ingest_to_raw(
     return output_paths
 
 
-def ingest_raw_copy(
-    source_dir: Path,
-    raw_dir: Path,
-    entities: list[str],
-) -> dict[str, Path]:
-    """Direct file copy for when API simulation is not needed."""
-    raw_dir.mkdir(parents=True, exist_ok=True)
-    output_paths: dict[str, Path] = {}
-
-    for entity in entities:
-        src = source_dir / f"{entity}.json"
-        dst = raw_dir / f"{entity}.json"
-        shutil.copy2(src, dst)
-        output_paths[entity] = dst
-
-    return output_paths

@@ -34,9 +34,9 @@ def run_pipeline(
     )
 
     print("\n=== Pre-bronze → Raw ===")
-    from medallion.pre_bronze import ingest_raw_copy
+    from medallion.pre_bronze import ingest_to_raw
 
-    ingest_raw_copy(source_dir, config.raw_dir, ENTITIES)
+    ingest_to_raw(source_dir, config.raw_dir, ENTITIES)
 
     print("\n=== Bronze: JSON → Parquet ===")
     json_to_parquet(config.raw_dir, config.bronze_dir, ENTITIES)
