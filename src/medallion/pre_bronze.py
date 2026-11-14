@@ -112,5 +112,3 @@ def ingest_to_raw(
         logger.info("Wrote %d records to %s", len(records), output_path.name)
 
     return output_paths
-
-
