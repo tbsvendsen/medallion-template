@@ -89,6 +89,11 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation.
 | Data generation | Faker (seed=42) |
 | Testing | pytest, mypy (strict), ruff |
 
+## Related Projects
+
+- [polars-pandas-duckdb-benchmark](https://github.com/tbsvendsen/polars-pandas-duckdb-benchmark) — Performance comparison of the DataFrame engines used in this pipeline.
+- [duckdb-data-quality](https://github.com/tbsvendsen/duckdb-data-quality) — Data quality checks that complement the schema validation in this template's bronze layer.
+
 ## License
 
 MIT
