@@ -1,0 +1,1 @@
+"""Medallion architecture reference implementation."""
