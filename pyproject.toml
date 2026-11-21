@@ -10,9 +10,9 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 dependencies = [
-  "polars>=1.0,<2",
+  "polars>=1.0,<3",
   "pydantic>=2.0,<3",
-  "faker>=28.0,<40",
+  "faker>=28.0,<41",
 ]
 
 [project.optional-dependencies]
